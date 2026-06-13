@@ -7,6 +7,9 @@ All notable public changes to this project will be documented here.
 - Add governance files and contribution guidelines.
 - Add GitHub issue and pull request templates.
 - Define the initial security policy for source-safe public examples.
+- Add review-event validation and CI.
+- Add gold user fixed examples, regression fixtures, and deck quality metrics.
+- Add lecture profile taxonomy and release checklist documentation.
 
 ## 0.1.0
 
@@ -16,4 +19,3 @@ All notable public changes to this project will be documented here.
 - Add a Chart Bible case study.
 - Add privacy and source-boundary guidance.
 - Add synthetic examples and a review-event schema.
-

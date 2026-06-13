@@ -1,0 +1,30 @@
+{
+  "report_id": "synthetic-report-001",
+  "deck_profile": "mixed",
+  "source_boundary": "synthetic",
+  "reviewed_cards": 40,
+  "edited_cards": 11,
+  "edited_card_rate": 0.275,
+  "total_review_events": 14,
+  "failure_counts": {
+    "weak_cloze_target": 4,
+    "missing_foundation_concept": 3,
+    "awkward_phrasing": 2,
+    "repeated_concept": 2,
+    "weak_image_cue": 2,
+    "poor_spacing": 1
+  },
+  "metric_counts": {
+    "cloze_target_change_count": 4,
+    "missing_foundation_concept_count": 3,
+    "repeated_concept_count": 2,
+    "image_cue_missing_count": 2,
+    "awkward_phrasing_count": 2
+  },
+  "priority_fixes": [
+    "Sharpen cloze target selection before adding more cards.",
+    "Add foundation cards before frequency summaries.",
+    "Keep image cues visually separated from explanation text."
+  ]
+}
+
