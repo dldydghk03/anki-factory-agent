@@ -62,10 +62,17 @@ docs/
   feedback-loop.md            Review, correction, and metric workflow
   chart-bible-case-study.md   Lessons from a structured Chart Bible workflow
   privacy-and-source-boundaries.md
+  lecture-profile-taxonomy.md
+  gold-user-fixed-format.md
+  deck-quality-metrics.md
+  release-checklist.md
 
 examples/
   synthetic-card-before-after.md
   synthetic-review-events.jsonl
+  gold-user-fixed.synthetic.jsonl
+  card-quality-regression-fixtures.jsonl
+  deck-quality-report.synthetic.json
 
 schemas/
   review-event.schema.json
@@ -103,10 +110,20 @@ This is an early public repository created to document and open-source the
 workflow. The next implementation steps are:
 
 - add a small card-review CLI
-- add fixtures for different lecture profiles
-- add regression checks for awkward phrasing, repeated concepts, and weak
-  cloze targets
-- add a lightweight report for deck-level quality metrics
+- expand fixtures for different lecture profiles
+- turn regression fixtures into automated card-quality checks
+- summarize deck-level quality metrics from review events
+
+## Roadmap Issues
+
+Current roadmap work is tracked in GitHub issues:
+
+- review-event validation
+- `gold_user_fixed` example format
+- deck quality report metrics
+- privacy release checklist
+- card quality regression fixtures
+- lecture profile taxonomy
 
 ## Intended Use of Codex
 
