@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/anki-factory-agent/review-event.schema.json",
+  "title": "Anki Factory Review Event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "deck_profile",
+    "failure_type",
+    "before",
+    "after",
+    "rule_candidate",
+    "source_boundary"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "deck_profile": {
+      "type": "string",
+      "enum": [
+        "lecture_only",
+        "exam_reference_heavy",
+        "image_heavy",
+        "case_based",
+        "calculation_heavy",
+        "mixed"
+      ]
+    },
+    "failure_type": {
+      "type": "string",
+      "enum": [
+        "weak_cloze_target",
+        "missing_foundation_concept",
+        "awkward_phrasing",
+        "repeated_concept",
+        "weak_image_cue",
+        "poor_spacing",
+        "unsupported_fact",
+        "over_compressed_exam_reference",
+        "lecture_profile_mismatch"
+      ]
+    },
+    "before": {
+      "type": "string"
+    },
+    "after": {
+      "type": "string"
+    },
+    "rule_candidate": {
+      "type": "string"
+    },
+    "source_boundary": {
+      "type": "string",
+      "enum": [
+        "synthetic",
+        "de_identified",
+        "aggregate_only"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
+
