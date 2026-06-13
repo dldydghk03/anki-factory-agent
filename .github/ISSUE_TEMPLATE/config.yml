@@ -1,0 +1,6 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Source safety reminder
+    url: https://github.com/dldydghk03/anki-factory-agent/blob/main/docs/privacy-and-source-boundaries.md
+    about: Do not include private lecture files, user logs, credentials, or paid source text.
+
