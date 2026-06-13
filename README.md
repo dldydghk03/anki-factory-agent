@@ -71,6 +71,18 @@ schemas/
   review-event.schema.json
 ```
 
+## Validation
+
+Review-event examples can be checked with:
+
+```bash
+npm run validate
+```
+
+The current validator checks that JSONL examples parse and match the required
+fields, string types, enum values, and additional-property rules in
+`schemas/review-event.schema.json`.
+
 ## Design Principles
 
 - Source-grounded first: cards must be traceable to the provided material.
@@ -106,4 +118,3 @@ Codex is useful here as a maintainer workflow assistant:
 - checking whether a new rule overfits one lecture style
 - maintaining schemas, examples, and documentation
 - preparing release-quality public artifacts without exposing private sources
-
