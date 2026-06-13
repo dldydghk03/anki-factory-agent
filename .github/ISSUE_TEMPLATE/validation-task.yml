@@ -1,0 +1,28 @@
+name: Validation task
+description: Track schema, fixture, or metric validation work.
+title: "Validation: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: What should be validated?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: What concrete checks should pass?
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Add implementation notes or related files.
+    validations:
+      required: false
+

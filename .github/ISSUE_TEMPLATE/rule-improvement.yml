@@ -1,0 +1,41 @@
+name: Rule improvement
+description: Propose a reusable card quality or review rule.
+title: "Rule: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What recurring card quality problem does this rule address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-rule
+    attributes:
+      label: Proposed rule
+      description: Write the rule in general terms, not tied to one lecture.
+    validations:
+      required: true
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Most relevant deck profile
+      options:
+        - lecture_only
+        - exam_reference_heavy
+        - image_heavy
+        - case_based
+        - calculation_heavy
+        - mixed
+    validations:
+      required: true
+  - type: textarea
+    id: source-safety
+    attributes:
+      label: Source safety
+      description: Confirm that the example is synthetic, de-identified, or aggregate only.
+    validations:
+      required: true
+
