@@ -1,0 +1,14 @@
+{
+  "name": "anki-factory-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Source-grounded Anki deck generation workflow and review rules",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-review-events.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
+
