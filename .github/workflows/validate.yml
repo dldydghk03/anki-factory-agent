@@ -48,6 +48,25 @@ jobs:
               assert zipfile.is_zipfile(path), path
           PY
 
+      - name: Inspect infertility package schema
+        run: |
+          python - <<'PY'
+          import zipfile, tempfile, pathlib, sqlite3, os
+          src='work_inputs/infertility_source.apkg'
+          with tempfile.TemporaryDirectory() as td:
+              with zipfile.ZipFile(src) as z:
+                  print('members', z.namelist()[:30])
+                  z.extractall(td)
+              for p in pathlib.Path(td).glob('collection.anki*'):
+                  print('candidate', p.name, p.stat().st_size)
+                  try:
+                      con=sqlite3.connect(p)
+                      print('tables', con.execute("select name from sqlite_master where type='table'").fetchall())
+                      con.close()
+                  except Exception as e:
+                      print('error', e)
+          PY
+
       - name: Build and validate both decks
         run: python tools/final_rebuild.py
 
