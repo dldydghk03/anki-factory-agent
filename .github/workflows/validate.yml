@@ -48,7 +48,25 @@ jobs:
           PY
 
       - name: Build and validate both decks
-        run: python run_final_build.py
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('tools/final_rebuild_v2.py')
+          text = path.read_text(encoding='utf-8')
+          old = "if not cards or not any(card[2] in existing_jbl_dids for card in cards):"
+          new = "if not cards or not any(card[2] == optional_did for card in cards):"
+          assert old in text
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
+          python run_final_build.py
+          python - <<'PY'
+          from pathlib import Path
+          report = Path('outputs_v2/두_덱_개념선행_최종검증.txt').read_text(encoding='utf-8')
+          for section in report.split('\n\n'):
+              if 'active_application_cards:' in section:
+                  value = int(section.split('active_application_cards:')[1].splitlines()[0].strip())
+                  assert value > 0, section
+          PY
 
       - name: Upload completed decks
         uses: actions/upload-artifact@v4
