@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - main
+      - chatgpt/final-apkg-rebuild-20260816
+
+permissions:
+  contents: write
 
 jobs:
   review-events:
@@ -68,7 +72,7 @@ jobs:
                   assert value > 0, section
           PY
 
-      - name: Upload completed decks
+      - name: Upload completed decks as workflow artifact
         uses: actions/upload-artifact@v4
         with:
           name: final-apkg-decks
@@ -77,3 +81,12 @@ jobs:
             outputs_v2/*.txt
           if-no-files-found: error
           retention-days: 7
+
+      - name: Publish final APKG release assets
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG=chatgpt-final-apkg-20260816
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Final concept-first APKG decks" --notes "Concept-first cloze learning, later image/application cards, revised past-exam explanations, preserved note types, and validated media/database integrity."
+          gh release upload "$TAG" outputs_v2/*.apkg outputs_v2/*.txt --clobber
