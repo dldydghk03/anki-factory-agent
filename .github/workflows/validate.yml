@@ -36,11 +36,11 @@ jobs:
         run: |
           python -m pip install --quiet gdown
           mkdir -p work_inputs
-          gdown --id 1ponxLuAN44DagrRoVwMNKIVxsjOJ0pKJ -O work_inputs/gyne_source.apkg
-          gdown --id 1Kz_cvHYU3LPDx5VvwGRk0bnzuWHwsGmO -O work_inputs/infertility_source.apkg
-          gdown --id 1Xa8q6_XXXtzdGbDSOwmyh31dKzFOv0Hh -O work_inputs/reference_lee_wonjae.apkg
+          gdown 1ponxLuAN44DagrRoVwMNKIVxsjOJ0pKJ -O work_inputs/gyne_source.apkg
+          gdown 1Kz_cvHYU3LPDx5VvwGRk0bnzuWHwsGmO -O work_inputs/infertility_source.apkg
+          gdown 1Xa8q6_XXXtzdGbDSOwmyh31dKzFOv0Hh -O work_inputs/reference_lee_wonjae.apkg
           cp work_inputs/reference_lee_wonjae.apkg work_inputs/reference_lee_sanghoon.apkg
-          gdown --id 1CATab4Ua2GeH6xSUznXE-OCAEfP1EE92 -O work_inputs/concept_style_reference.md
+          gdown 1CATab4Ua2GeH6xSUznXE-OCAEfP1EE92 -O work_inputs/concept_style_reference.md
           python - <<'PY'
           import zipfile
           for name in ['gyne_source.apkg','infertility_source.apkg','reference_lee_wonjae.apkg','reference_lee_sanghoon.apkg']:
