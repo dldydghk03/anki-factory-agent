@@ -1,4 +1,4 @@
-name: Validate examples
+name: Validate and build final APKG files
 
 on:
   pull_request:
@@ -21,3 +21,26 @@ jobs:
       - name: Validate review events
         run: npm run validate
 
+  build-apkg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build and validate both decks
+        run: python tools/final_rebuild.py
+
+      - name: Upload completed decks
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-apkg-decks
+          path: |
+            outputs/*.apkg
+            outputs/*.txt
+          if-no-files-found: error
+          retention-days: 7
