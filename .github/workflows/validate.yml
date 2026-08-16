@@ -48,7 +48,7 @@ jobs:
           PY
 
       - name: Build and validate both decks
-        run: python tools/final_rebuild_v2.py
+        run: python run_final_build.py
 
       - name: Upload completed decks
         uses: actions/upload-artifact@v4
