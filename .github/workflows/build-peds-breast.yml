@@ -1,0 +1,56 @@
+name: Build pediatric surgery and breast imaging APKG
+
+on:
+  push:
+    branches:
+      - build/peds-breast-20260826
+    paths:
+      - 'deck_build/**'
+      - '.github/workflows/build-peds-breast.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install genanki pymupdf pillow gdown zstandard
+
+      - name: Build decks
+        run: python deck_build/run_builder.py
+
+      - name: List outputs
+        run: |
+          find deck_build/output -maxdepth 1 -type f -printf '%f %s bytes\n'
+
+      - name: Upload APKG files
+        uses: actions/upload-artifact@v4
+        with:
+          name: standardized-anki-decks
+          path: |
+            deck_build/output/*.apkg
+            deck_build/output/BUILD_REPORT.md
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Upload image previews
+        uses: actions/upload-artifact@v4
+        with:
+          name: deck-image-crops
+          path: deck_build/work/media/*.png
+          if-no-files-found: error
+          compression-level: 6
