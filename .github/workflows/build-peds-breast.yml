@@ -37,13 +37,60 @@ jobs:
         run: |
           find deck_build/output -maxdepth 1 -type f -printf '%f %s bytes\n'
 
-      - name: Upload APKG files
+      - name: Prepare direct APKG artifact payloads
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          import zipfile
+
+          out = Path('deck_build/output')
+          payload = Path('deck_build/apkg_payload')
+          shutil.rmtree(payload, ignore_errors=True)
+          (payload / 'pediatric').mkdir(parents=True)
+          (payload / 'breast').mkdir(parents=True)
+
+          files = list(out.glob('*.apkg'))
+          pediatric = next(p for p in files if '소아외과' in p.name)
+          breast = next(p for p in files if '유방영상학' in p.name)
+
+          for apkg, target in [(pediatric, payload / 'pediatric'), (breast, payload / 'breast')]:
+              with zipfile.ZipFile(apkg) as zf:
+                  zf.extractall(target)
+              names = {p.name for p in target.iterdir()}
+              if not ({'collection.anki2', 'collection.anki21', 'collection.anki21b'} & names):
+                  raise RuntimeError(f'No Anki collection database in {apkg.name}')
+              if 'media' not in names:
+                  raise RuntimeError(f'No media map in {apkg.name}')
+              print(apkg.name, '=>', target, len(names), 'root entries')
+          PY
+
+      - name: Upload combined APKG package
         uses: actions/upload-artifact@v4
         with:
           name: standardized-anki-decks
           path: |
             deck_build/output/*.apkg
             deck_build/output/BUILD_REPORT.md
+          if-no-files-found: error
+          compression-level: 0
+
+      # The artifact download endpoint itself returns a ZIP. Since APKG is also a
+      # ZIP container, uploading the unpacked root entries makes the downloaded
+      # artifact directly usable when saved with an .apkg extension.
+      - name: Upload Pediatric Surgery as direct APKG
+        uses: actions/upload-artifact@v4
+        with:
+          name: pediatric-surgery-direct-apkg
+          path: deck_build/apkg_payload/pediatric/*
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Upload Breast Imaging as direct APKG
+        uses: actions/upload-artifact@v4
+        with:
+          name: breast-imaging-direct-apkg
+          path: deck_build/apkg_payload/breast/*
           if-no-files-found: error
           compression-level: 0
 
