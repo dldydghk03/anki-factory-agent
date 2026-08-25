@@ -10,14 +10,12 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    env:
-      BUILD_DRY_RUN: '1'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,3 +54,15 @@ jobs:
           path: deck_build/work/media/*.png
           if-no-files-found: error
           compression-level: 6
+
+      - name: Publish APKG files for direct download
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="anki-decks-20260826-${GITHUB_RUN_NUMBER}"
+          gh release create "$TAG" \
+            deck_build/output/*.apkg \
+            deck_build/output/BUILD_REPORT.md \
+            --target "$GITHUB_SHA" \
+            --title "Standardized Anki decks — 2026-08-26" \
+            --notes "Pediatric Surgery and Breast Imaging APKG files generated from the bounded lecture and exam sources."
