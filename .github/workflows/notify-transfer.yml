@@ -1,0 +1,25 @@
+name: Notify temporary source transfer issue
+
+on:
+  push:
+    branches:
+      - build/peds-breast-20260826
+    paths:
+      - '.github/workflows/notify-transfer.yml'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment from GitHub Actions bot
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          gh api repos/$REPO/issues/12/comments \
+            -f body='Build bot is ready to receive the private source attachments for the standardized APKG build.'
