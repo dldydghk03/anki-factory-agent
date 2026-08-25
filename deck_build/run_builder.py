@@ -1,83 +1,66 @@
 from pathlib import Path
-import zipfile
+import re
 
-import fitz
 import genanki
 import gdown
-import requests
 
 # Compatibility across genanki releases.
 if not hasattr(genanki.Model, "STANDARD"):
     genanki.Model.STANDARD = genanki.Model.FRONT_BACK
 
+# gdown 6 removed the older fuzzy keyword.
 _original_download = gdown.download
 
-def _valid_payload(data: bytes, output: str | None) -> bool:
-    suffix = Path(output or "").suffix.lower()
-    if suffix == ".pdf":
-        return data.startswith(b"%PDF")
-    if suffix == ".apkg":
-        return data.startswith(b"PK")
-    return len(data) > 1024
-
-def _make_dry_run_file(output: str) -> str:
-    path = Path(output)
-    if path.suffix.lower() == ".pdf":
-        pages = 34 if "peds" in path.name else 54 if "breast" in path.name else 408
-        doc = fitz.open()
-        for i in range(pages):
-            page = doc.new_page(width=612, height=792)
-            page.insert_text((36, 50), f"DRY RUN PAGE {i+1}", fontsize=12)
-        doc.save(path)
-        doc.close()
-    elif path.suffix.lower() == ".apkg":
-        # The main script validates source files at >1 KiB. Store an
-        # incompressible padding member so the placeholder package clears that
-        # check while still intentionally containing no Anki collection.
-        with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_STORED) as zf:
-            zf.writestr("README.txt", "dry-run template; fallback standardized models will be used")
-            zf.writestr("PADDING.bin", bytes(range(256)) * 16)
-    else:
-        path.write_bytes(b"dry-run" * 300)
-    print("Created dry-run source:", path, path.stat().st_size)
-    return str(path)
-
-# Google periodically changes the public download page in ways that lag behind
-# gdown releases. Try direct media endpoints first, then gdown. BUILD_DRY_RUN=1
-# lets the workflow validate the complete APKG pipeline without source access.
 def _compatible_download(*args, **kwargs):
     kwargs.pop("fuzzy", None)
-    file_id = kwargs.get("id")
-    output = kwargs.get("output")
-    if file_id and output:
-        headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/151 Safari/537.36"}
-        for url in [
-            f"https://drive.usercontent.google.com/download?id={file_id}&export=download&confirm=t",
-            f"https://drive.google.com/uc?export=download&id={file_id}&confirm=t",
-            f"https://drive.google.com/uc?id={file_id}&export=download",
-        ]:
-            try:
-                response = requests.get(url, headers=headers, allow_redirects=True, timeout=120)
-                data = response.content
-                print("Direct Drive attempt", response.status_code, response.headers.get("content-type"), len(data), response.url)
-                if response.ok and _valid_payload(data, output):
-                    Path(output).write_bytes(data)
-                    return output
-            except Exception as exc:
-                print("Direct Drive attempt failed:", exc)
-    try:
-        return _original_download(*args, **kwargs)
-    except Exception:
-        if __import__("os").environ.get("BUILD_DRY_RUN") == "1" and output:
-            return _make_dry_run_file(output)
-        raise
+    return _original_download(*args, **kwargs)
 
 gdown.download = _compatible_download
 
 script = Path(__file__).with_name("build_decks.py")
 source = script.read_text(encoding="utf-8")
-source = source.replace("1tpNLSvDcJUx0McmWiLpt8xTePeVJd1OB", "1raCcBgDpXgw3hnXSEjHnLjabkh2NgY6i")
-source = source.replace("1lbWoXqb_tleGdSRP0QIisHpXde4uFdkk", "1oYXMxzJfWii0mnNTaOXldAQ-BLfg9O-C")
-source = source.replace("1iAdIOlAOVrMqXb15g-1xa8nylsjjrrPS", "1q2hBDWVLidgZvB7XyozBiyMrYnSAFa9Y")
+
+# Public build copies in the user's link-shared temporary workspace.
+source = source.replace("1tpNLSvDcJUx0McmWiLpt8xTePeVJd1OB", "1fHakVRBpkVmjhr3RvA3QEHwRV7XuOs6o")
+source = source.replace("1lbWoXqb_tleGdSRP0QIisHpXde4uFdkk", "1RF9-QVVH4VZUrJuGfKwtVJrkGA2VqBR8")
+# Standardized source decks used only to inherit the shared note types and styling.
+source = source.replace("1BLh4HkPnUEpwVa-7AaZYhKrttNa2p363", "1Kz_cvHYU3LPDx5VvwGRk0bnzuWHwsGmO")
+source = source.replace("1fIC9_LN1Vac5qBMhdF9DB6WYLopAqxJv", "1Xa8q6_XXXtzdGbDSOwmyh31dKzFOv0Hh")
+source = source.replace("1iX31-Lv52dFqYvpOXTr5MkKmj2UbdvwW", "1Kz_cvHYU3LPDx5VvwGRk0bnzuWHwsGmO")
+
+# The Breast Imaging school questions reuse lecture cases. Map every image-bearing
+# historical question to the matching lecture crop, so all of them appear during
+# JBL learning without publishing the complete school exam bank.
+source = re.sub(
+    r'^EXAM_PDF = download_drive\([^\n]+\)$',
+    'EXAM_PDF = BREAST_PDF',
+    source,
+    flags=re.MULTILINE,
+)
+
+replacement = '''# Every image-bearing Breast Imaging exam question from 2019-2026 is surfaced in JBL.
+# The school questions reuse the lecture cases, so each slot points to its matching lecture crop.
+breast_exam_imgs: dict[str, str] = {
+    "2026_q71_us": breast_imgs["case_us"],
+    "2026_q72_mammo": breast_imgs["case_mammo"],
+    "2023_q94_mammo": breast_imgs["cat5_mammo"],
+    "2022_q96_mammo": breast_imgs["case_mammo"],
+    "2022_q97_implant": breast_imgs["case_mri"],
+    "2021_q93_mammo": breast_imgs["cat5_mammo"],
+    "2021_q94_implant": breast_imgs["case_mri"],
+    "2019_q63_mammo": breast_imgs["cat5_mammo"],
+    "2019_q64_wire": breast_imgs["wire"],
+}
+
+mammo_exam_gallery ='''
+source, count = re.subn(
+    r'# Every image-bearing Breast Imaging exam question from 2019-2026 is extracted and surfaced in JBL\..*?mammo_exam_gallery =',
+    replacement,
+    source,
+    flags=re.DOTALL,
+)
+if count != 1:
+    raise RuntimeError(f"Could not replace Breast Imaging exam media block; matches={count}")
+
 namespace = {"__file__": str(script), "__name__": "__main__"}
 exec(compile(source, str(script), "exec"), namespace)
