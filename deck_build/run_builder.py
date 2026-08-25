@@ -131,9 +131,6 @@ source = source.replace(
 
 breast_exam_block = r'''
 # ---------- Breast Imaging school examinations ----------
-def breast_options(lines: list[str]) -> str:
-    return "<br>".join(lines)
-
 add_exam(
     breast_school,
     "<b>2026 연계-70</b><br><br>다음의 유방 영상 진단 기법에 대한 설명 중 옳은 것은?<br>"
@@ -142,194 +139,102 @@ add_exam(
     "③ 유방 MRI는 특이도가 가장 높아 조직검사를 대체한다.<br>"
     "④ 유방 MRI는 미세석회화 평가에 가장 유용하다.<br>"
     "⑤ 조직검사에서 암이 진단되면 MRI는 필요하지 않다.",
-    exam_back(
-        "②",
-        "유방촬영술은 저에너지 X-ray를 사용하며 미세석회화 평가에 가장 유용하다. 초음파는 낭성·고형 감별과 치밀유방의 촉지 종괴 평가에 유용하다. MRI는 민감도가 높지만 특이도가 낮아 조직검사를 대체하지 못하며, 수술 전 범위 평가에 사용된다.",
-        takeaway="검사별 역할: mammography는 미세석회화, 초음파는 낭성·고형 감별과 시술 유도, MRI는 범위 평가.",
-    ),
+    exam_back("②", "유방촬영술은 저에너지 X-ray를 사용하며 미세석회화 평가에 가장 유용하다. 초음파는 낭성·고형 감별과 치밀유방의 촉지 종괴 평가에 유용하다. MRI는 민감도가 높지만 특이도가 낮아 조직검사를 대체하지 못하며, 수술 전 범위 평가에 사용된다.", takeaway="검사별 역할: mammography는 미세석회화, 초음파는 낭성·고형 감별과 시술 유도, MRI는 범위 평가."),
 )
 add_exam(
     breast_school,
-    "<b>2026 연계-71</b><br><br>우측 유방의 촉지 종괴에 대한 초음파 영상이다. 가장 적절한 BI-RADS 범주와 권고의 조합은?<br>"
-    "① Category 3 – 6개월 추적 초음파<br>② Category 4A – 단기 추적 관찰<br>③ Category 4B – 유방 MRI<br>④ Category 4C – 초음파 유도하 중심침생검<br>⑤ Category 6 – 치료 없이 추적 관찰"
-    + img_html(breast_exam_imgs["2026_q71_us"], "2026 초음파 문제"),
-    exam_back(
-        "④",
-        "불규칙한 고형 종괴와 비양성 경계는 악성을 의심하게 한다. BI-RADS 4 병변은 조직검사가 필요하며, 영상 소견이 매우 의심스러운 경우 4C로 평가할 수 있다.",
-        takeaway="BI-RADS 4–5는 추적이 아니라 조직검사로 연결된다.",
-    ),
+    "<b>2026 연계-71</b><br><br>우측 유방의 촉지 종괴에 대한 초음파 영상이다. 가장 적절한 BI-RADS 범주와 권고의 조합은?<br>① Category 3 – 6개월 추적 초음파<br>② Category 4A – 단기 추적 관찰<br>③ Category 4B – 유방 MRI<br>④ Category 4C – 초음파 유도하 중심침생검<br>⑤ Category 6 – 치료 없이 추적 관찰" + img_html(breast_exam_imgs["2026_q71_us"], "2026 초음파 문제"),
+    exam_back("④", "불규칙한 고형 종괴와 비양성 경계는 악성을 의심하게 한다. BI-RADS 4 병변은 조직검사가 필요하며, 영상 소견이 매우 의심스러운 경우 4C로 평가할 수 있다.", takeaway="BI-RADS 4–5는 추적이 아니라 조직검사로 연결된다."),
 )
 add_exam(
     breast_school,
-    "<b>2026 연계-72</b><br><br>촉지 종괴가 있는 43세 여성의 유방촬영술이다. 옳은 설명은?<br>"
-    "① 유방초음파 후 조직검사를 시행한다.<br>② 병변은 BI-RADS Category 3이다.<br>③ 6개월 후 유방촬영술로 추적한다.<br>④ 유방 실질은 유형 A이다.<br>⑤ MRI를 시행하면 조직검사를 생략할 수 있다."
-    + img_html(breast_exam_imgs["2026_q72_mammo"], "2026 mammography 문제"),
-    exam_back(
-        "①",
-        "Spiculated margin을 보이는 종괴는 BI-RADS 4 또는 5에 해당한다. 초음파로 병변을 정밀 평가하고 조직검사로 확진한다. MRI는 조직검사를 대체하지 못한다.",
-        takeaway="Spiculated mass는 단기 추적 대상이 아니다.",
-    ),
+    "<b>2026 연계-72</b><br><br>촉지 종괴가 있는 43세 여성의 유방촬영술이다. 옳은 설명은?<br>① 유방초음파 후 조직검사를 시행한다.<br>② 병변은 BI-RADS Category 3이다.<br>③ 6개월 후 유방촬영술로 추적한다.<br>④ 유방 실질은 유형 A이다.<br>⑤ MRI를 시행하면 조직검사를 생략할 수 있다." + img_html(breast_exam_imgs["2026_q72_mammo"], "2026 mammography 문제"),
+    exam_back("①", "Spiculated margin을 보이는 종괴는 BI-RADS 4 또는 5에 해당한다. 초음파로 병변을 정밀 평가하고 조직검사로 확진한다. MRI는 조직검사를 대체하지 못한다.", takeaway="Spiculated mass는 단기 추적 대상이 아니다."),
 )
 add_exam(
     breast_school,
-    "<b>2026 연계-73</b><br><br>유방에 멍울이 촉지되는 환자에서 MRI의 역할에 대한 설명으로 옳은 것은?<br>"
-    "① 일차 선별검사로 사용한다.<br>② 미세석회화 평가에 가장 유용하다.<br>③ 특이도가 가장 높아 조직검사를 대체한다.<br>④ 조직검사에서 암이 진단되면 필요하지 않다.<br>⑤ 수술 전 병변의 범위와 다발성 병변 평가에 중요하다.",
-    exam_back(
-        "⑤",
-        "MRI는 민감도가 높아 수술 전 병변 범위, 다발성 및 반대측 병변 평가에 유용하다. 특이도가 낮으므로 확진을 위한 조직검사를 대체하지 못한다.",
-        takeaway="암 확진 뒤 MRI는 범위를 정하는 검사다.",
-    ),
+    "<b>2026 연계-73</b><br><br>유방에 멍울이 촉지되는 환자에서 MRI의 역할에 대한 설명으로 옳은 것은?<br>① 일차 선별검사로 사용한다.<br>② 미세석회화 평가에 가장 유용하다.<br>③ 특이도가 가장 높아 조직검사를 대체한다.<br>④ 조직검사에서 암이 진단되면 필요하지 않다.<br>⑤ 수술 전 병변의 범위와 다발성 병변 평가에 중요하다.",
+    exam_back("⑤", "MRI는 민감도가 높아 수술 전 병변 범위, 다발성 및 반대측 병변 평가에 유용하다. 특이도가 낮으므로 확진을 위한 조직검사를 대체하지 못한다.", takeaway="암 확진 뒤 MRI는 범위를 정하는 검사다."),
 )
 add_exam(
     breast_school,
-    "<b>2023 연계-92</b><br><br>유방 검사에 대한 설명 중 옳은 것은?<br>"
-    "① 미세석회화는 초음파가 더 잘 본다.<br>② 조직 겹침을 줄이기 위해 elastography가 개발되었다.<br>③ 초음파는 유방 조직검사를 유도하는 데 유용하다.<br>④ MRI는 민감도와 특이도가 모두 높아 확진검사로 사용한다.<br>⑤ 보형물 환자에서 MRI는 유용하지 않다.",
-    exam_back(
-        "③",
-        "미세석회화는 mammography가 가장 잘 평가한다. 조직 겹침을 줄이는 기술은 DBT이다. MRI는 민감도가 높지만 특이도가 낮고, 보형물 평가에도 유용하다.",
-        takeaway="초음파는 실시간으로 바늘 위치를 확인할 수 있어 조직검사 유도에 적합하다.",
-    ),
+    "<b>2023 연계-92</b><br><br>유방 검사에 대한 설명 중 옳은 것은?<br>① 미세석회화는 초음파가 더 잘 본다.<br>② 조직 겹침을 줄이기 위해 elastography가 개발되었다.<br>③ 초음파는 유방 조직검사를 유도하는 데 유용하다.<br>④ MRI는 민감도와 특이도가 모두 높아 확진검사로 사용한다.<br>⑤ 보형물 환자에서 MRI는 유용하지 않다.",
+    exam_back("③", "미세석회화는 mammography가 가장 잘 평가한다. 조직 겹침을 줄이는 기술은 DBT이다. MRI는 민감도가 높지만 특이도가 낮고, 보형물 평가에도 유용하다.", takeaway="초음파는 실시간으로 바늘 위치를 확인할 수 있어 조직검사 유도에 적합하다."),
 )
 add_exam(
     breast_school,
-    "<b>2023 연계-94</b><br><br>57세 무증상 여성의 CC·MLO 유방촬영술이다. 다음 단계로 적절한 것은?<br>"
-    "① Category 0으로 판정한다.<br>② MRI를 시행한다.<br>③ 정밀검사를 위해 유방초음파를 시행한다.<br>④ 6개월 뒤 유방촬영술로 추적한다.<br>⑤ 병변은 우측 내상방에 있다."
-    + img_html(breast_exam_imgs["2023_q94_mammo"], "2023 mammography 문제"),
-    exam_back(
-        "③",
-        "불규칙하고 침상 경계를 보이는 종괴는 Category 5에 해당하며 조직검사가 필요하다. 치밀유방의 종괴는 초음파로 추가 평가한다. 병변은 우측 하외측에 위치한다.",
-        takeaway="악성 종괴가 보이면 초음파와 조직검사로 이어진다.",
-    ),
+    "<b>2023 연계-94</b><br><br>57세 무증상 여성의 CC·MLO 유방촬영술이다. 다음 단계로 적절한 것은?<br>① Category 0으로 판정한다.<br>② MRI를 시행한다.<br>③ 정밀검사를 위해 유방초음파를 시행한다.<br>④ 6개월 뒤 유방촬영술로 추적한다.<br>⑤ 병변은 우측 내상방에 있다." + img_html(breast_exam_imgs["2023_q94_mammo"], "2023 mammography 문제"),
+    exam_back("③", "불규칙하고 침상 경계를 보이는 종괴는 Category 5에 해당하며 조직검사가 필요하다. 치밀유방의 종괴는 초음파로 추가 평가한다. 병변은 우측 하외측에 위치한다.", takeaway="악성 종괴가 보이면 초음파와 조직검사로 이어진다."),
 )
 add_exam(
     breast_school,
-    "<b>2022 연계-94</b><br><br>유방 검사에 대한 설명 중 옳은 것은?<br>"
-    "① 치밀유방에서 유방촬영술은 미세석회화 진단에 유용하지 않다.<br>② 조직 겹침을 줄이는 기술은 elastography이다.<br>③ 초음파는 유방 조직검사를 유도하는 데 유용하다.<br>④ MRI는 민감도와 특이도가 모두 높다.<br>⑤ 보형물 환자에서 MRI는 유용하지 않다.",
-    exam_back(
-        "③",
-        "치밀유방에서도 미세석회화는 mammography로 평가한다. DBT는 조직 겹침을 줄이고, MRI는 민감도가 높지만 특이도가 낮다.",
-        takeaway="초음파는 병변 확인뿐 아니라 시술 유도에 사용된다.",
-    ),
+    "<b>2022 연계-94</b><br><br>유방 검사에 대한 설명 중 옳은 것은?<br>① 치밀유방에서 유방촬영술은 미세석회화 진단에 유용하지 않다.<br>② 조직 겹침을 줄이는 기술은 elastography이다.<br>③ 초음파는 유방 조직검사를 유도하는 데 유용하다.<br>④ MRI는 민감도와 특이도가 모두 높다.<br>⑤ 보형물 환자에서 MRI는 유용하지 않다.",
+    exam_back("③", "치밀유방에서도 미세석회화는 mammography로 평가한다. DBT는 조직 겹침을 줄이고, MRI는 민감도가 높지만 특이도가 낮다.", takeaway="초음파는 병변 확인뿐 아니라 시술 유도에 사용된다."),
 )
 add_exam(
     breast_school,
-    "<b>2022 연계-95</b><br><br>40–69세 무증상 여성에서 유방암 검진을 위해 2년마다 권고되는 영상검사는?<br>"
-    "① 유방촬영술<br>② 유방초음파<br>③ 유방 MRI<br>④ DBT<br>⑤ 탄성초음파",
-    exam_back(
-        "①",
-        "무증상 여성의 국가검진 기본 검사는 유방촬영술이다. 초음파는 일상적 단독 선별검사로 권고되지 않는다.",
-        takeaway="40–69세 무증상 여성: mammography 2년마다.",
-    ),
+    "<b>2022 연계-95</b><br><br>40–69세 무증상 여성에서 유방암 검진을 위해 2년마다 권고되는 영상검사는?<br>① 유방촬영술<br>② 유방초음파<br>③ 유방 MRI<br>④ DBT<br>⑤ 탄성초음파",
+    exam_back("①", "무증상 여성의 국가검진 기본 검사는 유방촬영술이다. 초음파는 일상적 단독 선별검사로 권고되지 않는다.", takeaway="40–69세 무증상 여성: mammography 2년마다."),
 )
 add_exam(
     breast_school,
-    "<b>2022 연계-96</b><br><br>71세 여성의 촉지 종괴에 대한 유방촬영술이다. 옳은 설명은?<br>"
-    "① Fatty breast이다.<br>② BI-RADS Category 3이다.<br>③ MRI 정밀검사가 우선이다.<br>④ 초음파와 조직검사를 후속으로 시행한다.<br>⑤ Mass와 architectural distortion이 보인다."
-    + img_html(breast_exam_imgs["2022_q96_mammo"], "2022 mammography 문제"),
-    exam_back(
-        "④",
-        "치밀유방에서 종괴와 미세석회화가 보이며 악성이 의심된다. 초음파로 병변을 평가하고 조직검사로 확진한다. 구조왜곡과 미세석회화를 구분해야 한다.",
-        takeaway="의심스러운 mass와 calcification은 Category 4 이상으로 보고 조직검사한다.",
-    ),
+    "<b>2022 연계-96</b><br><br>71세 여성의 촉지 종괴에 대한 유방촬영술이다. 옳은 설명은?<br>① Fatty breast이다.<br>② BI-RADS Category 3이다.<br>③ MRI 정밀검사가 우선이다.<br>④ 초음파와 조직검사를 후속으로 시행한다.<br>⑤ Mass와 architectural distortion이 보인다." + img_html(breast_exam_imgs["2022_q96_mammo"], "2022 mammography 문제"),
+    exam_back("④", "치밀유방에서 종괴와 미세석회화가 보이며 악성이 의심된다. 초음파로 병변을 평가하고 조직검사로 확진한다. 구조왜곡과 미세석회화를 구분해야 한다.", takeaway="의심스러운 mass와 calcification은 Category 4 이상으로 보고 조직검사한다."),
 )
 add_exam(
     breast_school,
-    "<b>2022 연계-97</b><br><br>20년 전 유방 확대수술을 받은 45세 여성의 촉지 종괴를 평가할 가장 적절한 검사는?<br>"
-    "① 초음파<br>② 확대 유방촬영술<br>③ DBT<br>④ MRI<br>⑤ 흉부 CT"
-    + img_html(breast_exam_imgs["2022_q97_implant"], "2022 보형물 문제"),
-    exam_back(
-        "④",
-        "MRI는 보형물의 상태와 보형물 주변 유방조직을 평가하는 데 유용하다.",
-        takeaway="유방 보형물 환자의 문제 해결 검사로 MRI를 고려한다.",
-    ),
+    "<b>2022 연계-97</b><br><br>20년 전 유방 확대수술을 받은 45세 여성의 촉지 종괴를 평가할 가장 적절한 검사는?<br>① 초음파<br>② 확대 유방촬영술<br>③ DBT<br>④ MRI<br>⑤ 흉부 CT" + img_html(breast_exam_imgs["2022_q97_implant"], "2022 보형물 문제"),
+    exam_back("④", "MRI는 보형물의 상태와 보형물 주변 유방조직을 평가하는 데 유용하다.", takeaway="유방 보형물 환자의 문제 해결 검사로 MRI를 고려한다."),
 )
 add_exam(
     breast_school,
-    "<b>2021 연계-91</b><br><br>유방 검사에 대한 설명 중 옳은 것은?<br>"
-    "① 유방촬영술은 치밀유방에서 유용하다.<br>② 조직 겹침을 줄이기 위해 elastography가 개발되었다.<br>③ 초음파는 조직검사나 다른 검사의 위치 판단에 유용하다.<br>④ MRI는 민감도와 특이도가 모두 높다.",
-    exam_back(
-        "③",
-        "초음파는 실시간 위치 확인과 조직검사 유도에 유용하다. DBT는 조직 겹침을 줄이고, MRI는 높은 민감도에 비해 특이도가 낮다.",
-        takeaway="초음파의 중요한 역할 중 하나는 시술 유도다.",
-    ),
+    "<b>2021 연계-91</b><br><br>유방 검사에 대한 설명 중 옳은 것은?<br>① 유방촬영술은 치밀유방에서 유용하다.<br>② 조직 겹침을 줄이기 위해 elastography가 개발되었다.<br>③ 초음파는 조직검사나 다른 검사의 위치 판단에 유용하다.<br>④ MRI는 민감도와 특이도가 모두 높다.",
+    exam_back("③", "초음파는 실시간 위치 확인과 조직검사 유도에 유용하다. DBT는 조직 겹침을 줄이고, MRI는 높은 민감도에 비해 특이도가 낮다.", takeaway="초음파의 중요한 역할 중 하나는 시술 유도다."),
 )
 add_exam(
     breast_school,
-    "<b>2021 연계-92</b><br><br>40–69세 무증상 여성에서 유방암 검진을 위해 2년마다 권고되는 영상검사는?<br>"
-    "① 유방촬영술<br>② 유방초음파<br>③ 유방 MRI<br>④ DBT<br>⑤ 탄성초음파",
+    "<b>2021 연계-92</b><br><br>40–69세 무증상 여성에서 유방암 검진을 위해 2년마다 권고되는 영상검사는?<br>① 유방촬영술<br>② 유방초음파<br>③ 유방 MRI<br>④ DBT<br>⑤ 탄성초음파",
     exam_back("①", "유방촬영술은 유방암 사망률 감소가 입증된 기본 선별검사다.", takeaway="40–69세 무증상 여성: mammography 2년마다."),
 )
 add_exam(
     breast_school,
-    "<b>2021 연계-93</b><br><br>무증상 52세 여성의 유방촬영술이다. 옳은 설명은?<br>"
-    "① Irregular spiculated mass이므로 Category 3이다.<br>② Microcalcification이 보인다.<br>③ 지방성 유방이다.<br>④ 초음파와 조직검사를 시행한다.<br>⑤ MRI로 확진한다."
-    + img_html(breast_exam_imgs["2021_q93_mammo"], "2021 mammography 문제"),
-    exam_back(
-        "④",
-        "Irregular spiculated mass는 Category 4 이상으로 평가하며, 초음파 후 조직검사가 필요하다. MRI는 확진검사가 아니다.",
-        takeaway="침상 경계는 강한 악성 소견이다.",
-    ),
+    "<b>2021 연계-93</b><br><br>무증상 52세 여성의 유방촬영술이다. 옳은 설명은?<br>① Irregular spiculated mass이므로 Category 3이다.<br>② Microcalcification이 보인다.<br>③ 지방성 유방이다.<br>④ 초음파와 조직검사를 시행한다.<br>⑤ MRI로 확진한다." + img_html(breast_exam_imgs["2021_q93_mammo"], "2021 mammography 문제"),
+    exam_back("④", "Irregular spiculated mass는 Category 4 이상으로 평가하며, 초음파 후 조직검사가 필요하다. MRI는 확진검사가 아니다.", takeaway="침상 경계는 강한 악성 소견이다."),
 )
 add_exam(
     breast_school,
-    "<b>2021 연계-94</b><br><br>20년 전 유방 확대수술을 받은 45세 여성의 촉지 종괴를 평가할 가장 적절한 검사는?<br>"
-    "① 초음파<br>② 확대 유방촬영술<br>③ DBT<br>④ MRI<br>⑤ 흉부 CT"
-    + img_html(breast_exam_imgs["2021_q94_implant"], "2021 보형물 문제"),
+    "<b>2021 연계-94</b><br><br>20년 전 유방 확대수술을 받은 45세 여성의 촉지 종괴를 평가할 가장 적절한 검사는?<br>① 초음파<br>② 확대 유방촬영술<br>③ DBT<br>④ MRI<br>⑤ 흉부 CT" + img_html(breast_exam_imgs["2021_q94_implant"], "2021 보형물 문제"),
     exam_back("④", "MRI는 보형물과 주변 유방조직 평가에 유용하다.", takeaway="보형물 관련 문제 해결에는 MRI를 고려한다."),
 )
 add_exam(
     breast_school,
-    "<b>2020 연계-95</b><br><br>유방 영상기법에 대한 설명 중 옳은 것은?<br>"
-    "① MRI는 민감도가 낮다.<br>② 유선조직 겹침으로 민감도와 특이도가 떨어지는 단점을 줄이기 위해 DBT가 개발되었다.<br>③ 유방촬영술은 치밀유방에 특히 유용하다.<br>④ 탄성초음파는 탄성도를 이용하지 않는다.<br>⑤ 치밀유방에는 초음파를 사용하지 않는다.",
-    exam_back(
-        "②",
-        "DBT는 여러 각도의 영상을 재구성해 2D mammography의 조직 겹침을 줄인다. MRI는 민감도가 높고, 탄성초음파는 병변의 경도를 보조적으로 평가한다.",
-        takeaway="DBT의 목적은 조직 중첩 감소다.",
-    ),
+    "<b>2020 연계-95</b><br><br>유방 영상기법에 대한 설명 중 옳은 것은?<br>① MRI는 민감도가 낮다.<br>② 유선조직 겹침으로 민감도와 특이도가 떨어지는 단점을 줄이기 위해 DBT가 개발되었다.<br>③ 유방촬영술은 치밀유방에 특히 유용하다.<br>④ 탄성초음파는 탄성도를 이용하지 않는다.<br>⑤ 치밀유방에는 초음파를 사용하지 않는다.",
+    exam_back("②", "DBT는 여러 각도의 영상을 재구성해 2D mammography의 조직 겹침을 줄인다. MRI는 민감도가 높고, 탄성초음파는 병변의 경도를 보조적으로 평가한다.", takeaway="DBT의 목적은 조직 중첩 감소다."),
 )
 add_exam(
     breast_school,
-    "<b>2020 연계-96</b><br><br>40–69세 무증상 여성에서 유방암 검진을 위해 2년마다 권고되는 영상검사는?<br>"
-    "① 유방촬영술<br>② 유방초음파<br>③ 유방 MRI<br>④ DBT<br>⑤ 탄성초음파",
+    "<b>2020 연계-96</b><br><br>40–69세 무증상 여성에서 유방암 검진을 위해 2년마다 권고되는 영상검사는?<br>① 유방촬영술<br>② 유방초음파<br>③ 유방 MRI<br>④ DBT<br>⑤ 탄성초음파",
     exam_back("①", "유방촬영술은 유방암 사망률 감소가 입증된 기본 선별검사다.", takeaway="40–69세 무증상 여성: mammography 2년마다."),
 )
 add_exam(
     breast_school,
-    "<b>2019 연계-61</b><br><br>유방촬영 영상기법에 대한 설명 중 옳은 것은?<br>"
-    "① 유방촬영술은 치밀유방에서 종괴 검출에 특히 유리하다.<br>③ 유선조직 겹침에 따른 민감도·특이도 저하를 줄이기 위해 DBT가 개발되었다.<br>⑤ 유방 MRI는 민감도가 낮다.",
-    exam_back(
-        "③",
-        "DBT는 조직 겹침을 줄이기 위해 개발되었다. 치밀유방에서는 mammography의 종괴 검출 민감도가 떨어져 초음파가 보조적으로 사용되며, MRI의 민감도는 높다.",
-        takeaway="검사별 장단점을 비교하는 반복 유형이다.",
-    ),
+    "<b>2019 연계-61</b><br><br>유방촬영 영상기법에 대한 설명 중 옳은 것은?<br>① 유방촬영술은 치밀유방에서 종괴 검출에 특히 유리하다.<br>③ 유선조직 겹침에 따른 민감도·특이도 저하를 줄이기 위해 DBT가 개발되었다.<br>⑤ 유방 MRI는 민감도가 낮다.",
+    exam_back("③", "DBT는 조직 겹침을 줄이기 위해 개발되었다. 치밀유방에서는 mammography의 종괴 검출 민감도가 떨어져 초음파가 보조적으로 사용되며, MRI의 민감도는 높다.", takeaway="검사별 장단점을 비교하는 반복 유형이다."),
 )
 add_exam(
     breast_school,
-    "<b>2019 연계-62</b><br><br>40–69세 무증상 여성에서 유방암 검진을 위해 2년마다 권고되는 영상검사는?<br>"
-    "① 유방촬영술<br>② 유방초음파<br>③ 유방 MRI<br>④ DBT<br>⑤ 탄성초음파",
+    "<b>2019 연계-62</b><br><br>40–69세 무증상 여성에서 유방암 검진을 위해 2년마다 권고되는 영상검사는?<br>① 유방촬영술<br>② 유방초음파<br>③ 유방 MRI<br>④ DBT<br>⑤ 탄성초음파",
     exam_back("①", "유방촬영술은 유방암 사망률 감소가 입증된 기본 선별검사다.", takeaway="40–69세 무증상 여성: mammography 2년마다."),
 )
 add_exam(
     breast_school,
-    "<b>2019 연계-63 · 복원 제한</b><br><br>유방촬영술에서 큰 종괴가 화살표로 제시되었다. 복원된 선택지 중 옳은 것은?<br>"
-    "① Spiculated irregular mass이므로 Category 3이다.<br>② MRI로 최종 확진한다.<br>③ 미세석회화와 mass가 있다.<br>④ 6개월 뒤 추적한다.<br>⑤ 지방성 유방이다."
-    + img_html(breast_exam_imgs["2019_q63_mammo"], "2019 mammography 복원 문제"),
-    exam_back(
-        "복원상 ③",
-        "원문 영상과 일부 선택지가 완전하게 남아 있지 않다. 기록상 정답은 ③으로 복원되었다. 다만 spiculated mass 자체는 Category 4–5 소견이며 MRI는 조직검사를 대체하지 않는다.",
-        takeaway="불완전 복원 문제는 정답보다 영상 소견과 다음 처치를 우선 정리한다.",
-    ),
+    "<b>2019 연계-63 · 복원 제한</b><br><br>유방촬영술에서 큰 종괴가 화살표로 제시되었다. 복원된 선택지 중 옳은 것은?<br>① Spiculated irregular mass이므로 Category 3이다.<br>② MRI로 최종 확진한다.<br>③ 미세석회화와 mass가 있다.<br>④ 6개월 뒤 추적한다.<br>⑤ 지방성 유방이다." + img_html(breast_exam_imgs["2019_q63_mammo"], "2019 mammography 복원 문제"),
+    exam_back("복원상 ③", "원문 영상과 일부 선택지가 완전하게 남아 있지 않다. 기록상 정답은 ③으로 복원되었다. 다만 spiculated mass 자체는 Category 4–5 소견이며 MRI는 조직검사를 대체하지 않는다.", takeaway="불완전 복원 문제는 정답보다 영상 소견과 다음 처치를 우선 정리한다."),
 )
 add_exam(
     breast_school,
-    "<b>2019 연계-64</b><br><br>비촉지성 유방 병변의 수술 전 위치를 표시하기 위해 초음파로 병변에 갈고리 철심을 삽입한 시술의 명칭은?<br>"
-    "① 초음파 유도하 침 위치 결정술<br>② 유방촬영술 유도하 침 위치 결정술<br>③ 입체정위 조직검사<br>④ 중심침생검<br>⑤ 진공보조유방생검"
-    + img_html(breast_exam_imgs["2019_q64_wire"], "2019 wire localization 문제"),
-    exam_back(
-        "①",
-        "초음파에서 보이는 비촉지성 병변에 hook wire를 삽입해 수술 범위를 표시하는 시술이다. 초음파에서 보이지 않는 미세석회화는 mammography 유도로 위치를 표시할 수 있다.",
-        takeaway="병변이 보이는 영상기법으로 wire localization을 유도한다.",
-    ),
+    "<b>2019 연계-64</b><br><br>비촉지성 유방 병변의 수술 전 위치를 표시하기 위해 초음파로 병변에 갈고리 철심을 삽입한 시술의 명칭은?<br>① 초음파 유도하 침 위치 결정술<br>② 유방촬영술 유도하 침 위치 결정술<br>③ 입체정위 조직검사<br>④ 중심침생검<br>⑤ 진공보조유방생검" + img_html(breast_exam_imgs["2019_q64_wire"], "2019 wire localization 문제"),
+    exam_back("①", "초음파에서 보이는 비촉지성 병변에 hook wire를 삽입해 수술 범위를 표시하는 시술이다. 초음파에서 보이지 않는 미세석회화는 mammography 유도로 위치를 표시할 수 있다.", takeaway="병변이 보이는 영상기법으로 wire localization을 유도한다."),
 )
 
 '''
@@ -371,7 +276,7 @@ def _collection_bytes(apkg: Path) -> bytes:
     raise RuntimeError(f"No Anki collection database in {apkg}")
 
 
-def validate_apkg(apkg: Path, required_suffixes: list[str]) -> dict[str, int]:
+def validate_apkg(apkg: Path, required_suffixes: list[str], required_models: set[str]) -> dict[str, int]:
     data = _collection_bytes(apkg)
     tmp = Path(tempfile.mkstemp(suffix=".sqlite")[1])
     tmp.write_bytes(data)
@@ -394,7 +299,6 @@ def validate_apkg(apkg: Path, required_suffixes: list[str]) -> dict[str, int]:
         if nonempty_tags:
             raise AssertionError(f"{apkg.name}: {nonempty_tags} notes contain tags")
         model_names = {cfg.get("name", "") for cfg in models.values()}
-        required_models = {"!표준화 cloze ver2.1", "!표준화 Basic ver2.1", "!표준화 뉴족보 ver2.1"}
         if not required_models.issubset(model_names):
             raise AssertionError(f"{apkg.name}: standardized models missing: {required_models - model_names}")
         con.close()
@@ -404,8 +308,16 @@ def validate_apkg(apkg: Path, required_suffixes: list[str]) -> dict[str, int]:
 
 peds_out = Path(namespace["peds_out"])
 breast_out = Path(namespace["breast_out"])
-peds_validation = validate_apkg(peds_out, ["::1. JBL", "::2. 참공", "::3. 족보", "::4. KMLE"])
-breast_validation = validate_apkg(breast_out, ["::1. JBL", "::2. 족보"])
+peds_validation = validate_apkg(
+    peds_out,
+    ["::1. JBL", "::2. 참공", "::3. 족보", "::4. KMLE"],
+    {"!표준화 cloze ver2.1", "!표준화 Basic ver2.1", "!표준화 뉴족보 ver2.1"},
+)
+breast_validation = validate_apkg(
+    breast_out,
+    ["::1. JBL", "::2. 족보"],
+    {"!표준화 cloze ver2.1", "!표준화 뉴족보 ver2.1"},
+)
 
 report = Path(namespace["report"])
 with report.open("a", encoding="utf-8") as fp:
