@@ -31,10 +31,14 @@ def _make_dry_run_file(output: str) -> str:
         doc.save(path)
         doc.close()
     elif path.suffix.lower() == ".apkg":
-        with zipfile.ZipFile(path, "w") as zf:
+        # The main script validates source files at >1 KiB. Store an
+        # incompressible padding member so the placeholder package clears that
+        # check while still intentionally containing no Anki collection.
+        with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_STORED) as zf:
             zf.writestr("README.txt", "dry-run template; fallback standardized models will be used")
+            zf.writestr("PADDING.bin", bytes(range(256)) * 16)
     else:
-        path.write_bytes(b"dry-run")
+        path.write_bytes(b"dry-run" * 300)
     print("Created dry-run source:", path, path.stat().st_size)
     return str(path)
 
