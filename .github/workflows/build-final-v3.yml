@@ -31,6 +31,21 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install genanki pymupdf pillow gdown zstandard requests
 
+      - name: Preload original pediatric lecture PDF
+        run: |
+          mkdir -p deck_build/work/sources
+          curl --location --fail --retry 3 --retry-delay 2 \
+            'https://sdmntprjapaneast.oaiusercontent.com/files/00000000-a09c-8209-86ad-2aa00e906d3a/raw?se=2026-08-26T00%3A54%3A48Z&sp=r&sv=2026-02-06&sr=b&scid=0bd23773-ade5-5a90-84d9-ae2da2e80616&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-26T00%3A41%3A59Z&ske=2026-08-27T00%3A41%3A59Z&sks=b&skv=2026-02-06&sig=dUMGmEHGhOCnbzoUfIDH6RUlZPjvCiYNnIqvuiSX0V0%3D' \
+            --output deck_build/work/sources/peds_lecture.pdf
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('deck_build/work/sources/peds_lecture.pdf')
+          data = path.read_bytes()
+          assert data.startswith(b'%PDF'), 'Downloaded pediatric lecture is not a PDF'
+          assert len(data) == 7110749, f'Unexpected pediatric lecture size: {len(data)}'
+          print(f'Preloaded {path}: {len(data):,} bytes')
+          PY
+
       - name: Build and validate APKG files
         run: python deck_build/final_v3/run_final_v3_fixed.py
 
