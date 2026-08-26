@@ -1,0 +1,52 @@
+name: Build final verified pediatric surgery and breast imaging APKG
+
+on:
+  push:
+    branches:
+      - build/final-v3-20260826
+    paths:
+      - 'deck_build/final_v3/**'
+      - 'deck_build/build_decks.py'
+      - '.github/workflows/build-final-v3.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install genanki pymupdf pillow gdown zstandard requests
+
+      - name: Build and validate APKG files
+        run: python deck_build/final_v3/run_final_v3.py
+
+      - name: List verified outputs
+        run: |
+          find deck_build/output -maxdepth 1 -type f -printf '%f %s bytes\n' | sort
+          echo '--- FINAL_VALIDATION.txt ---'
+          cat deck_build/output/FINAL_VALIDATION.txt
+
+      - name: Upload final verified package
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-verified-anki-decks-v3
+          path: |
+            deck_build/output/소아외과_유방영상학_APKG_최종검수.zip
+            deck_build/output/*_최종검수.apkg
+            deck_build/output/FINAL_VALIDATION.txt
+          if-no-files-found: error
+          compression-level: 0
