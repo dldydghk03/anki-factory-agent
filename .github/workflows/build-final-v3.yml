@@ -35,11 +35,11 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p deck_build/work/sources
-          curl -L --fail --retry 3 'https://sdmntprkoreacentral.oaiusercontent.com/files/00000000-4a38-8206-800e-28b99a1a4b09/raw?se=2026-08-26T00%3A58%3A04Z&sp=r&sv=2026-02-06&sr=b&scid=71811240-7fd7-5fe1-87da-d657f1d16e08&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-25T23%3A11%3A56Z&ske=2026-08-26T23%3A11%3A56Z&sks=b&skv=2026-02-06&sig=aA9/GOUyOilgnzoSEWtOM5L2RkK%2Bqvcb4UVmj7DABqw%3D' -o deck_build/work/sources/peds_lecture.pdf &
-          curl -L --fail --retry 3 'https://sdmntprcentralus.oaiusercontent.com/files/00000000-5644-81f5-9189-0daf335114c0/raw?se=2026-08-26T00%3A56%3A29Z&sp=r&sv=2026-02-06&sr=b&scid=18cf7f6e-abf7-5db0-ab1e-200c4165c39f&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-26T00%3A41%3A57Z&ske=2026-08-27T00%3A41%3A57Z&sks=b&skv=2026-02-06&sig=t41OYKCLXaITTWb/IwD/vlVbYsZ0QjrHyhzehR/9i7g%3D' -o deck_build/work/sources/peds_summary.pdf &
-          curl -L --fail --retry 3 'https://sdmntprkoreacentral.oaiusercontent.com/files/00000000-cf1c-8206-a99b-72dfed88d505/raw?se=2026-08-26T00%3A56%3A56Z&sp=r&sv=2026-02-06&sr=b&scid=61f9f93a-f7ca-5278-a03e-cea0afe85e58&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-25T23%3A01%3A08Z&ske=2026-08-26T23%3A01%3A08Z&sks=b&skv=2026-02-06&sig=6%2BwDlt%2B5Mm1QWCYd23mXTVQ6g2LOWjTkscH/UU17z6I%3D' -o deck_build/work/sources/breast_lecture.pdf &
-          curl -L --fail --retry 3 'https://sdmntprjapaneast.oaiusercontent.com/files/00000000-aaac-8209-bd2d-73ff0bd7f397/raw?se=2026-08-26T00%3A57%3A15Z&sp=r&sv=2026-02-06&sr=b&scid=086213b2-f0b9-5693-b794-fe1d19e783b9&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-26T00%3A17%3A59Z&ske=2026-08-27T00%3A17%3A59Z&sks=b&skv=2026-02-06&sig=fIPTGTRwoe0N96IIAeFw8c1A4Mv8tNjBxrY8uQpqM60%3D' -o deck_build/work/sources/linked_exam.pdf &
-          curl -L --fail --retry 3 'https://sdmntprjapaneast.oaiusercontent.com/files/00000000-d3e4-8209-9d64-bc43f1c99666/raw?se=2026-08-26T00%3A57%3A38Z&sp=r&sv=2026-02-06&sr=b&scid=55635638-dbb3-528d-b898-3ca1d86ebbe6&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-25T22%3A59%3A33Z&ske=2026-08-26T22%3A59%3A33Z&sks=b&skv=2026-02-06&sig=L3sH4XHwX17xoKGt6mqArR6twON49Y3ZKW25yRfehaM%3D' -o deck_build/work/sources/template_acute.apkg &
+          curl -L --fail --retry 3 'https://sdmntprkoreacentral.oaiusercontent.com/files/00000000-14f4-8206-a440-aa157b85ba5c/raw?se=2026-08-26T01%3A01%3A58Z&sp=r&sv=2026-02-06&sr=b&scid=356c8129-f4b6-5656-9ad9-e8eea61fab1f&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-25T23%3A12%3A02Z&ske=2026-08-26T23%3A12%3A02Z&sks=b&skv=2026-02-06&sig=SbDvuwPHgIInVFkBgnvS17ZVJilaFoOcOZtwl3/W/AQ%3D' -o deck_build/work/sources/peds_lecture.pdf &
+          curl -L --fail --retry 3 'https://sdmntprkoreacentral.oaiusercontent.com/files/00000000-165c-8206-a73b-2ef47387e4d5/raw?se=2026-08-26T01%3A02%3A23Z&sp=r&sv=2026-02-06&sr=b&scid=165e55fa-4608-5538-80cf-4c8154097b8a&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-26T00%3A42%3A00Z&ske=2026-08-27T00%3A42%3A00Z&sks=b&skv=2026-02-06&sig=TBw7/DBfG2xnRJb8UVVR/IKjEt2ePWX9AADAUY7TNho%3D' -o deck_build/work/sources/peds_summary.pdf &
+          curl -L --fail --retry 3 'https://sdmntprjapaneast.oaiusercontent.com/files/00000000-0530-8209-9456-42da1f64739c/raw?se=2026-08-26T01%3A02%3A42Z&sp=r&sv=2026-02-06&sr=b&scid=0f1785b0-9d12-52fc-9535-d86afd5473a2&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-26T00%3A41%3A59Z&ske=2026-08-27T00%3A41%3A59Z&sks=b&skv=2026-02-06&sig=Cg/iS%2B7kZ%2Bg6eVEJysxIc0NXRP4yY3kIY5X7tk2wvvM%3D' -o deck_build/work/sources/breast_lecture.pdf &
+          curl -L --fail --retry 3 'https://sdmntprseasia.oaiusercontent.com/files/00000000-f5ac-8207-a1d1-25007c4d4810/raw?se=2026-08-26T01%3A03%3A03Z&sp=r&sv=2026-02-06&sr=b&scid=afa8d524-adc1-55d7-9a91-c528d374e03f&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-26T00%3A41%3A56Z&ske=2026-08-27T00%3A41%3A56Z&sks=b&skv=2026-02-06&sig=zT6%2B7E/NMMI/3Fi8RklTP%2B34ccwgQNBGiBECXvviXOg%3D' -o deck_build/work/sources/linked_exam.pdf &
+          curl -L --fail --retry 3 'https://sdmntprjapaneast.oaiusercontent.com/files/00000000-b6a4-8209-a41f-bc89febc15a5/raw?se=2026-08-26T01%3A04%3A35Z&sp=r&sv=2026-02-06&sr=b&scid=b2103877-5c86-57e4-9696-61c7e38e13db&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-26T00%3A17%3A58Z&ske=2026-08-26T22%3A59%3A33Z&sks=b&skv=2026-02-06&sig=wqROeJkHK45gv%2BS%2B/qYfAfXpzvg4COGwDd7UE4M99Fs%3D' -o deck_build/work/sources/template_acute.apkg &
           wait
           cp deck_build/work/sources/template_acute.apkg deck_build/work/sources/template_complication.apkg
           cp deck_build/work/sources/template_acute.apkg deck_build/work/sources/template_vascular.apkg
@@ -61,6 +61,14 @@ jobs:
               assert len(data) == size, f'{name}: {len(data)} != {size}'
               print(f'{name}: {len(data):,} bytes OK')
           PY
+
+      - name: Preserve source cache
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-build-source-cache-v3
+          path: deck_build/work/sources/*
+          if-no-files-found: error
+          compression-level: 0
 
       - name: Build and validate APKG files
         run: python deck_build/final_v3/run_final_v3_fixed.py
