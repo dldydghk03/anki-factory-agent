@@ -32,7 +32,7 @@ jobs:
           python -m pip install genanki pymupdf pillow gdown zstandard requests
 
       - name: Build and validate APKG files
-        run: python deck_build/final_v3/run_final_v3.py
+        run: python deck_build/final_v3/run_final_v3_fixed.py
 
       - name: List verified outputs
         run: |
