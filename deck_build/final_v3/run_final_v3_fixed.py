@@ -13,7 +13,8 @@ wrapper_source = wrapper_source.replace(
     read_line,
     read_line
     + 'source = source.replace(\'SRC / "peds_summary.pdf"\', \'SRC / "peds_lecture.pdf"\', 1)\n'
-    + 'source = source.replace(\'im.resize((max_cell_width, int(im.height * ratio)), Image.Resampling.LANCZOS)\', \'im.resize((max_cell_width, max(1, int(im.height * ratio))), Image.Resampling.LANCZOS)\')\n',
+    + 'source = source.replace(\'im.resize((max_cell_width, int(im.height * ratio)), Image.Resampling.LANCZOS)\', \'im.resize((max_cell_width, max(1, int(im.height * ratio))), Image.Resampling.LANCZOS)\')\n'
+    + 'source = source.replace(\'required_models = {"!표준화 cloze ver2.1", "!표준화 Basic ver2.1", "!표준화 뉴족보 ver2.1"}\', \'required_models = {"!표준화 cloze ver2.1", "!표준화 뉴족보 ver2.1"}\\n        if any(name.endswith("::2. 참공") for name in expected):\\n            required_models.add("!표준화 Basic ver2.1")\')\n',
     1,
 )
 
