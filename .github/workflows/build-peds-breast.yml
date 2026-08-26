@@ -31,13 +31,13 @@ jobs:
           python -m pip install genanki pymupdf pillow gdown zstandard
 
       - name: Build and validate final decks
-        run: python deck_build/run_final_v3.py
+        run: python deck_build/run_public_verified.py
 
-      - name: List outputs
+      - name: List outputs and validation
         run: |
           find deck_build/output -maxdepth 1 -type f -printf '%f %s bytes\n'
-          echo '--- FINAL VALIDATION ---'
-          cat deck_build/output/FINAL_VALIDATION.md
+          echo '--- BUILD AND DATABASE VALIDATION ---'
+          cat deck_build/output/BUILD_REPORT.md
 
       - name: Prepare direct APKG artifact payloads
         run: |
@@ -74,7 +74,6 @@ jobs:
           path: |
             deck_build/output/*누락검수완료.apkg
             deck_build/output/BUILD_REPORT.md
-            deck_build/output/FINAL_VALIDATION.md
           if-no-files-found: error
           compression-level: 0
 
@@ -110,7 +109,6 @@ jobs:
           gh release create "$TAG" \
             deck_build/output/*누락검수완료.apkg \
             deck_build/output/BUILD_REPORT.md \
-            deck_build/output/FINAL_VALIDATION.md \
             --target "$GITHUB_SHA" \
             --title "Verified Pediatric Surgery and Breast Imaging Anki decks" \
             --notes "Required subdecks, populated exam fields, standardized note types, embedded media, and absence of tags were validated before release."
