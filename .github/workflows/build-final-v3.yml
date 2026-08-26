@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   build:
@@ -31,51 +32,36 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install genanki pymupdf pillow gdown zstandard requests
 
-      - name: Preload all source files
+      - name: Restore preserved source cache
+        uses: actions/download-artifact@v4
+        with:
+          name: final-build-source-cache-v3
+          path: deck_build/work/sources
+          github-token: ${{ github.token }}
+          repository: dldydghk03/anki-factory-agent
+          run-id: 32917536749
+
+      - name: Verify source cache
         run: |
-          set -euo pipefail
-          mkdir -p deck_build/work/sources
-          curl -L --fail --retry 3 'https://sdmntprnorthcentralus.oaiusercontent.com/files/00000000-0bc4-822f-8319-86c41cfbac45/raw?se=2026-08-26T01%3A06%3A27Z&sp=r&sv=2026-02-06&sr=b&scid=69366249-974f-5c1f-ad0d-91610f1646db&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-25T22%3A59%3A35Z&ske=2026-08-26T22%3A59%3A35Z&sks=b&skv=2026-02-06&sig=oI7ftzV2K8MEEWwu55vDukjp5zfAZIfjwX/Nd6FtZ8c%3D' -o deck_build/work/sources/peds_lecture.pdf &
-          curl -L --fail --retry 3 'https://sdmntprseasia.oaiusercontent.com/files/00000000-e30c-8207-b825-6e0ebae56692/raw?se=2026-08-26T01%3A06%3A58Z&sp=r&sv=2026-02-06&sr=b&scid=39ae8dc1-9a0d-5d40-85cf-fa05da57c8f8&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-25T23%3A06%3A46Z&ske=2026-08-26T23%3A06%3A46Z&sks=b&skv=2026-02-06&sig=Ya46Q1tyTjZPvp6FcIBUFA4T4IGVS1sqdLusrt%2BCvGk%3D' -o deck_build/work/sources/peds_summary.pdf &
-          curl -L --fail --retry 3 'https://sdmntprindiasocentral.oaiusercontent.com/files/00000000-2714-8211-995a-37c674ed9b4f/raw?se=2026-08-26T01%3A07%3A25Z&sp=r&sv=2026-02-06&sr=b&scid=8dfe2ee1-6e7c-5302-8604-e97acac7c779&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-26T00%3A42%3A00Z&ske=2026-08-27T00%3A42%3A00Z&sks=b&skv=2026-02-06&sig=bFZYndOu0tQK%2BGSLBoOcbs3D0t2ZuDuTHSwnMKcdzSQ%3D' -o deck_build/work/sources/breast_lecture.pdf &
-          curl -L --fail --retry 3 'https://sdmntprkoreacentral.oaiusercontent.com/files/00000000-6a28-8206-b797-a1245dd905b3/raw?se=2026-08-26T01%3A07%3A51Z&sp=r&sv=2026-02-06&sr=b&scid=199f06a4-bd8f-5c4e-900b-97a4585f670f&skoid=bb372dd6-3b2a-4af2-b355-c26497ba23cd&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-25T23%3A53%3A05Z&ske=2026-08-26T23%3A53%3A05Z&sks=b&skv=2026-02-06&sig=UBlTjKtEuQDnFXPZ9AqxjzoulP/79bQ42Eo8nd37r8k%3D' -o deck_build/work/sources/linked_exam.pdf &
-          wait
           python - <<'PY'
           from pathlib import Path
-          import zipfile
-
-          root = Path('deck_build/work/sources')
           expected = {
               'peds_lecture.pdf': (b'%PDF', 7110749),
               'peds_summary.pdf': (b'%PDF', 19551504),
               'breast_lecture.pdf': (b'%PDF', 4986109),
               'linked_exam.pdf': (b'%PDF', 20733103),
           }
+          root = Path('deck_build/work/sources')
           for name, (magic, size) in expected.items():
               data = (root / name).read_bytes()
               assert data.startswith(magic), f'{name}: wrong magic bytes'
               assert len(data) == size, f'{name}: {len(data)} != {size}'
               print(f'{name}: {len(data):,} bytes OK')
-
-          # The builder falls back to the shared standardized model definitions
-          # when no readable template collection is present. A >1 KB APKG-like
-          # placeholder prevents an unnecessary private-file download.
-          placeholder = root / 'template_acute.apkg'
-          with zipfile.ZipFile(placeholder, 'w', compression=zipfile.ZIP_STORED) as zf:
-              zf.writestr('README.txt', 'standardized fallback template\n' + ('x' * 4096))
-          assert placeholder.stat().st_size > 1024
-          for name in ('template_complication.apkg', 'template_vascular.apkg'):
-              (root / name).write_bytes(placeholder.read_bytes())
-          print('Template placeholders created; standardized fallback note types will be used.')
+          for name in ('template_acute.apkg', 'template_complication.apkg', 'template_vascular.apkg'):
+              path = root / name
+              assert path.exists() and path.stat().st_size > 1024, f'Missing placeholder {name}'
+              print(f'{name}: {path.stat().st_size:,} bytes OK')
           PY
-
-      - name: Preserve source cache
-        uses: actions/upload-artifact@v4
-        with:
-          name: final-build-source-cache-v3
-          path: deck_build/work/sources/*
-          if-no-files-found: error
-          compression-level: 0
 
       - name: Build and validate APKG files
         run: python deck_build/final_v3/run_final_v3_fixed.py
