@@ -3,6 +3,18 @@ from pathlib import Path
 wrapper_path = Path(__file__).with_name("run_final_v3.py")
 wrapper_source = wrapper_path.read_text(encoding="utf-8")
 
+# The workflow preloads the original 74-page pediatric lecture at this path.
+# Rename only the first pediatric source target; the summary/question source
+# continues to use peds_summary.pdf.
+read_line = 'source = base_script.read_text(encoding="utf-8")\n'
+if read_line not in wrapper_source:
+    raise RuntimeError("Base-script read line was not found")
+wrapper_source = wrapper_source.replace(
+    read_line,
+    read_line + 'source = source.replace(\'SRC / "peds_summary.pdf"\', \'SRC / "peds_lecture.pdf"\', 1)\n',
+    1,
+)
+
 old = '''replace_once(
     r"(PEDS_PDF = download_drive\\([^\\n]+\\)\\n)",
     r"\\1PEDS_Q_PDF = download_drive(\\\"1raCcBgDpXgw3hnXSEjHnLjabkh2NgY6i\\\", SRC / \\\"peds_summary.pdf\\\")\\n",
