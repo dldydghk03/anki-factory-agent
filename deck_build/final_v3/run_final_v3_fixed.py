@@ -11,7 +11,9 @@ if read_line not in wrapper_source:
     raise RuntimeError("Base-script read line was not found")
 wrapper_source = wrapper_source.replace(
     read_line,
-    read_line + 'source = source.replace(\'SRC / "peds_summary.pdf"\', \'SRC / "peds_lecture.pdf"\', 1)\n',
+    read_line
+    + 'source = source.replace(\'SRC / "peds_summary.pdf"\', \'SRC / "peds_lecture.pdf"\', 1)\n'
+    + 'source = source.replace(\'im.resize((max_cell_width, int(im.height * ratio)), Image.Resampling.LANCZOS)\', \'im.resize((max_cell_width, max(1, int(im.height * ratio))), Image.Resampling.LANCZOS)\')\n',
     1,
 )
 
