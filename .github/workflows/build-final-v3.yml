@@ -72,7 +72,43 @@ jobs:
           echo '--- FINAL_VALIDATION.txt ---'
           cat deck_build/output/FINAL_VALIDATION.txt
 
-      - name: Upload final verified package
+      - name: Prepare separate mobile downloads
+        run: |
+          set -euo pipefail
+          mkdir -p deck_build/mobile
+          peds="$(find deck_build/output -maxdepth 1 -type f -name '*소아외과*최종검수.apkg' -print -quit)"
+          breast="$(find deck_build/output -maxdepth 1 -type f -name '*유방영상학*최종검수.apkg' -print -quit)"
+          test -n "$peds"
+          test -n "$breast"
+          cp "$peds" deck_build/mobile/peds_surgery_final.apkg
+          cp "$breast" deck_build/mobile/breast_imaging_final.apkg
+          cp deck_build/output/FINAL_VALIDATION.txt deck_build/mobile/FINAL_VALIDATION.txt
+          sha256sum deck_build/mobile/*.apkg | tee deck_build/mobile/SHA256SUMS.txt
+          ls -lh deck_build/mobile
+
+      - name: Upload pediatric deck separately
+        uses: actions/upload-artifact@v4
+        with:
+          name: peds-surgery-final-apkg
+          path: |
+            deck_build/mobile/peds_surgery_final.apkg
+            deck_build/mobile/FINAL_VALIDATION.txt
+            deck_build/mobile/SHA256SUMS.txt
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Upload breast imaging deck separately
+        uses: actions/upload-artifact@v4
+        with:
+          name: breast-imaging-final-apkg
+          path: |
+            deck_build/mobile/breast_imaging_final.apkg
+            deck_build/mobile/FINAL_VALIDATION.txt
+            deck_build/mobile/SHA256SUMS.txt
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Upload combined verified package
         uses: actions/upload-artifact@v4
         with:
           name: final-verified-anki-decks-v3
